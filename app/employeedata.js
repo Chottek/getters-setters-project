@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const dbconf = require('./dbconfig.json');
+const dbconf = require('./dbconf.json');
 const util = require('util');
 const db = wrapDB(dbconf);
 

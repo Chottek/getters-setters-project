@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block pageTitle %}
+Enter a new employee
+{% endblock %}
+
+{% block content %}
+
+<h2>Enter a new employee</h2>
+{% if errormessage %} 
+<div class="govuk-error-message">{{ errormessage }}</div> 
+{% endif %}
+
+<form class="form" action="/addemployees" method="post">
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+    {{ govukInput({
+    label: {
+    text: "Employee ID:"
+    },
+    id: "id",
+    name: "id",
+    value: data["id"] 
+    }) }}
+
+    {{ govukInput({
+    label: {
+    text: "Employee name:"
+    },
+    id: "emp_name",
+    name: "emp_name",
+    value: data["emp_name"] 
+    }) }}
+
+    {{ govukInput({
+    label: {
+    text: "Employee address:"
+    },
+    id: "emp_address",
+    name: "emp_address",
+    value: data["emp_address"] 
+    }) }}
+
+    {{ govukInput({
+    label: {
+    text: "National Insurance Number:"
+    },
+    id: "ninum",
+    name: "ninum",
+    value: data["ninum"] 
+    }) }}
+
+    {{ govukInput({
+    label: {
+    text: "Bank details:"
+    },
+    id: "iban",
+    name: "iban",
+    value: data["iban"] 
+    }) }}
+
+    {{ govukInput({
+        label: {
+        text: "Starting salary:"
+        },
+        id: "start_salary",
+        name: "start_salary",
+        value: data["start_salary"] 
+        }) }}
+
+    <button type="submit" class="govuk-button" data-module="govuk-button">
+        Submit
+    </button>
+</form>
+
+{% endblock %}
