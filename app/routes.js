@@ -8,6 +8,7 @@ router.get('/list-employees', async (req, res) => {
     res.render('list-employees', { employees: await employeedata.getEmployees() } ) 
 });
 
+<<<<<<< HEAD
 router.get('/list-employees/:substr', (req, res) => {
     res.render('list-employees', 
     { 
@@ -16,8 +17,10 @@ router.get('/list-employees/:substr', (req, res) => {
    }); 
 });
 
+=======
+>>>>>>> 483cc8dff5e4867da9915a106ef511bd951e6a8b
 router.get('/addemployees', async (req, res) => { 
-    res.render('newempform', { cities: await employeedata.getEmployees() } ); 
+    res.render('newempform', { employees: await employeedata.getEmployees() } ); 
     });
 
 router.post('/addemployees', async (req, res) => { 
@@ -35,12 +38,12 @@ router.post('/addemployees', async (req, res) => {
     validityFlag = isValidIban(emp.ninum);
 
     if(!validityFlag){
-        
+        return
     }
 
     // validate here 
-    employeedata.addEmployee(emp) 
-    res.render('list-employees', { employees: employeedata.getEmployees()} ) 
+    let insertedKey = await employeedata.addEmployee(req.body)
+    res.render('list-employees', { employees: await employeedata.getEmployees()} );
 })
 
 function hasValidInputLength(value, maxlength){
