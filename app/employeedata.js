@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const dbconf = require('./dbconf.json');
 const util = require('util');
+const e = require('express');
 const db = wrapDB(dbconf);
 const TAX_RATE_PERCENTAGE = 25;
 
@@ -31,6 +32,33 @@ function wrapDB (dbconfig) {
     })
     return max;
  }
+
+
+
+/**
+ * Iterates over emploees got from database, sets the gross pay value for each of them
+ * @returns Array of Employees with additional (grosspay) field
+ */
+ exports.getFinances = async () => {
+    let emps = await db.query( 
+        "SELECT id, emp_name, emp_address, ninum, start_salary, department" 
+        + " FROM Employee");
+
+     emps.forEach(e => {
+         e.grosspay = calcGrossPay(e.start_salary);
+     });
+     return emps;
+ }
+
+
+/**
+ * Calculates gross pay from Employee pay
+ * @param {*} payvalue Employee raw pay
+ * @returns Value of gross pay (mixed with tax rate percentage constant)
+ */
+function calcGrossPay(payvalue){
+    return payvalue - ((TAX_RATE_PERCENTAGE/100) * payvalue); 
+}
 
  /**
   * Gets employess based on database query
