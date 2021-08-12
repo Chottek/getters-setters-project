@@ -8,6 +8,7 @@ router.get('/list-employees', async (req, res) => {
     res.render('list-employees', { employees: await employeedata.getEmployees() } ) 
 });
 
+
 router.get('/list-employees/:substr', (req, res) => {
     res.render('list-employees', 
     { 
@@ -16,8 +17,9 @@ router.get('/list-employees/:substr', (req, res) => {
    }); 
 });
 
+
 router.get('/addemployees', async (req, res) => { 
-    res.render('newempform', { cities: await employeedata.getEmployees() } ); 
+    res.render('newempform', { employees: await employeedata.getEmployees() } ); 
     });
 
 router.post('/addemployees', async (req, res) => { 
@@ -39,8 +41,8 @@ router.post('/addemployees', async (req, res) => {
     }
 
     // validate here 
-    employeedata.addEmployee(emp) 
-    res.render('list-employees', { employees: employeedata.getEmployees()} ) 
+    let insertedKey = await employeedata.addEmployee(req.body)
+    res.render('list-employees', { employees: await employeedata.getEmployees()} );
 })
 
 function hasValidInputLength(value, maxlength){
