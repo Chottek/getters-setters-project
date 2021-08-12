@@ -8,7 +8,6 @@ router.get('/list-employees', async (req, res) => {
     res.render('list-employees', { employees: await employeedata.getEmployees() } ) 
 });
 
-<<<<<<< HEAD
 router.get('/list-employees/:substr', (req, res) => {
     res.render('list-employees', 
     { 
@@ -17,8 +16,6 @@ router.get('/list-employees/:substr', (req, res) => {
    }); 
 });
 
-=======
->>>>>>> 483cc8dff5e4867da9915a106ef511bd951e6a8b
 router.get('/addemployees', async (req, res) => { 
     res.render('newempform', { employees: await employeedata.getEmployees() } ); 
     });
