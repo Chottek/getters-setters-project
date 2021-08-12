@@ -7,6 +7,13 @@ module.exports = function (env) {
    */
   var filters = {}
 
+  filters.isFromDep = function(employees, depstring){ 
+    if(typeof depstring == "undefined") { 
+      depstring = '' 
+    } 
+    return employees.filter(e => e.department.toLowerCase().indexOf(depstring) > -1) 
+  }
+
   /* ------------------------------------------------------------------
     add your methods to the filters obj below this comment block:
     @example:
