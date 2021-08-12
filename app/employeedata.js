@@ -1,7 +1,9 @@
 const mysql = require('mysql');
 const dbconf = require('./dbconf.json');
 const util = require('util');
+const e = require('express');
 const db = wrapDB(dbconf);
+const TAX_RATE_PERCENTAGE = 25;
 
 //wraps mysql callback-based async function in Promise objects
 function wrapDB (dbconfig) { 
@@ -18,6 +20,45 @@ function wrapDB (dbconfig) {
         } 
     }
  }
+
+ /**
+  * Gets Employee that has highest sales using reduce on objects in array
+  * @param {*} salesemps Employee objects that contains sales field
+  * @returns Employee that has highest sales
+  */
+ exports.getHighestSalesEmp = (salesemps) => {
+    const max = salesemps.reduce(function(prev, current) {
+        return (prev.sales > current.sales) ? prev : current
+    })
+    return max;
+ }
+
+
+
+/**
+ * Iterates over emploees got from database, sets the gross pay value for each of them
+ * @returns Array of Employees with additional (grosspay) field
+ */
+ exports.getFinances = async () => {
+    let emps = await db.query( 
+        "SELECT id, emp_name, emp_address, ninum, start_salary, department" 
+        + " FROM Employee");
+
+     emps.forEach(e => {
+         e.grosspay = calcGrossPay(e.start_salary);
+     });
+     return emps;
+ }
+
+
+/**
+ * Calculates gross pay from Employee pay
+ * @param {*} payvalue Employee raw pay
+ * @returns Value of gross pay (mixed with tax rate percentage constant)
+ */
+function calcGrossPay(payvalue){
+    return payvalue - ((TAX_RATE_PERCENTAGE/100) * payvalue); 
+}
 
  /**
   * Gets employess based on database query

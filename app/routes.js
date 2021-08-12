@@ -67,4 +67,9 @@ function isValidIban(iban) {
     return hasValidInputLength(iban, 34) && isNaN(iban.charAt(0)) && isNaN(iban.charAt(1));
 }
 
+
+router.get('/list-employees-pay', async (req, res) => {
+    res.render('list-employees-pay', { employees: await employeedata.getFinances(employeedata.getEmployees()) });
+});
+
 module.exports = router
