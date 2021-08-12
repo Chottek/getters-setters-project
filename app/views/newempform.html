@@ -6,8 +6,8 @@ Enter a new employee
 {% block content %}
 
 <h2>Enter a new employee</h2>
-{% if errormessage %} 
-<div class="govuk-error-message">{{ errormessage }}</div> 
+{% if errormessage %}
+<div class="govuk-error-message">{{ errormessage }}</div>
 {% endif %}
 
 <form class="form" action="/addemployee" method="post">
@@ -20,7 +20,7 @@ Enter a new employee
     },
     id: "emp_name",
     name: "emp_name",
-    value: data["emp_name"] 
+    value: data["emp_name"]
     }) }}
 
     {{ govukInput({
@@ -29,7 +29,7 @@ Enter a new employee
     },
     id: "emp_address",
     name: "emp_address",
-    value: data["emp_address"] 
+    value: data["emp_address"]
     }) }}
 
     {{ govukInput({
@@ -38,7 +38,7 @@ Enter a new employee
     },
     id: "ninum",
     name: "ninum",
-    value: data["ninum"] 
+    value: data["ninum"]
     }) }}
 
     {{ govukInput({
@@ -47,17 +47,46 @@ Enter a new employee
     },
     id: "iban",
     name: "iban",
-    value: data["iban"] 
+    value: data["iban"]
     }) }}
 
     {{ govukInput({
-        label: {
-        text: "Starting salary:"
+    label: {
+    text: "Starting salary:"
+    },
+    id: "start_salary",
+    name: "start_salary",
+    value: data["start_salary"]
+    }) }}
+
+    {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+    {{ govukSelect({
+      id: "department",
+      name: "department",
+      label: {
+        text: "Employee department:"
+      },
+      items: [
+        {
+          value: "HR",
+          text: "HR"
         },
-        id: "start_salary",
-        name: "start_salary",
-        value: data["start_salary"] 
-        }) }}
+        {
+          value: "Sales",
+          text: "Sales",
+          selected: true
+        },
+        {
+          value: "Technical",
+          text: "Technical"
+        },
+        {
+          value: "Finance",
+          text: "Finance"
+        }
+      ]
+    }) }}
 
     <button type="submit" class="govuk-button" data-module="govuk-button">
         Submit

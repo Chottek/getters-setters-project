@@ -25,7 +25,7 @@ function wrapDB (dbconfig) {
   */
  exports.getEmployees = async () => { 
     return await db.query( 
-        "SELECT id, emp_name, emp_address, ninum, start_salary" 
+        "SELECT id, emp_name, emp_address, ninum, start_salary, department" 
         + " FROM Employee");
  }
 
@@ -36,6 +36,7 @@ function wrapDB (dbconfig) {
   * @returns Async wrapped query of inserting object of newEmployee into database
   */
  exports.addEmployee = async (newEmployee) => {
+     console.log(newEmployee);
      return await db.query('INSERT INTO Employee SET ?', newEmployee);
  }
 
