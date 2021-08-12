@@ -38,7 +38,7 @@ router.post('/addemployee', async (req, res) => {
         validityFlag = false;
     }
 
-    if(!hasValidInputLength(emp.ninumber, 13)){
+    if(!hasValidInputLength(emp.ninum.replace(), 13)){
         res.locals.errormessage = "NIN is not valid (13 chars max)"
         console.error("ERROR on NIN")
         validityFlag = false;
