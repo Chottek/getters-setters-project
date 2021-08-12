@@ -9,5 +9,6 @@ lib/extensions/_extensions.scss
 .port.tmp
 public
 node_modules/*
+app/dbconf.json
 .tmuxp.*
 package-lock.json
