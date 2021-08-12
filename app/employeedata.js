@@ -16,13 +16,27 @@ function wrapDB (dbconfig) {
             return util.promisify( pool.releaseConnection ) 
             .call( pool ) 
         } 
-    } 
+    }
  }
 
+ /**
+  * Gets employess based on database query
+  * @returns Async wrapped query of getting objects of Employee table from database
+  */
  exports.getEmployees = async () => { 
     return await db.query( 
         "SELECT id, name, address, ninum, stsalary" 
         + " FROM Employee");
  }
 
- 
+
+ /**
+  * Inputs thing into database with checking if values are correct
+  * @param {*} newEmployee - employee object containing data from form
+  * @returns Async wrapped query of inserting object of newEmployee into database
+  */
+ exports.addEmployee = async (newEmployee) => {
+     return await db.query('INSERT INTO Employee SET ?', newEmployee);
+ }
+
+
