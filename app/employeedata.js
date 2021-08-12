@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const dbconf = require('./dbconf.json');
+const dbconf = require('./dbconfig.json');
 const util = require('util');
 const db = wrapDB(dbconf);
 
@@ -21,7 +21,7 @@ function wrapDB (dbconfig) {
 
  exports.getEmployees = async () => { 
     return await db.query( 
-        "SELECT id, name, address, ninum, stsalary" 
+        "SELECT id, emp_name, emp_address, ninum, start_salary" 
         + " FROM Employee");
  }
 
