@@ -21,6 +21,7 @@ router.get('/addemployee', async (req, res) => {
     res.render('newempform', { employees: await employeedata.getEmployees() });
 });
 
+
 router.post('/addemployee', async (req, res) => {
     var emp = req.body;
     let validityFlag = true;
