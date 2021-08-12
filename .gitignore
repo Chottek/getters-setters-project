@@ -12,4 +12,3 @@ node_modules/*
 app/dbconf.json
 .tmuxp.*
 package-lock.json
-docs/*
