@@ -72,4 +72,47 @@ router.get('/list-employees-pay', async (req, res) => {
     res.render('list-employees-pay', { employees: await employeedata.getFinances(employeedata.getEmployees()) });
 });
 
+
+router.get('/addsalesemployee', async (req, res) => {
+    res.render('newsalesempform', { employees: await employeedata.getEmployees() });
+});
+
+router.post('/addsalesemployee', async (req, res) => {
+    var emp = req.body;
+    let validityFlag = true;
+    if (!hasValidInputLength(emp.emp_name, 50)) {
+        res.locals.errormessage = "Name is too long (50 chars max)"
+        console.error("ERROR on name")
+        validityFlag = false;
+    }
+
+    if (!hasValidInputLength(emp.emp_address, 100)) {
+        res.locals.errormessage = "Address is too long (100 chars max)"
+        console.error("ERROR on address")
+        validityFlag = false;
+    }
+
+    if (!hasValidInputLength(emp.ninum.replace(/\s/g, ""), 13)) {
+        res.locals.errormessage = "NIN is not valid (13 chars max)"
+        console.error("ERROR on NIN")
+        validityFlag = false;
+    }
+
+    if (!isValidIban(emp.iban)) {
+        res.locals.errormessage = "IBAN is not valid"
+        console.error("ERROR on IBAN")
+        validityFlag = false;
+    }
+
+    if (!validityFlag) {
+        console.error("Validity flag is not valid :C")
+        res.render('newsalesempform', { employees: req.body });
+    } else {
+        console.log(req.body)
+        let insertedKey = await employeedata.addEmployee(req.body)
+        //let anotherKey = await employeedata.addSales(req.body)
+        res.render('list-employees', { employees: await employeedata.getEmployees() });
+    }
+})
+
 module.exports = router
