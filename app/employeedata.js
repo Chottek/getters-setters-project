@@ -2,6 +2,7 @@ const mysql = require('mysql');
 const dbconf = require('./dbconf.json');
 const util = require('util');
 const db = wrapDB(dbconf);
+const TAX_RATE_PERCENTAGE = 25;
 
 //wraps mysql callback-based async function in Promise objects
 function wrapDB (dbconfig) { 
@@ -17,6 +18,18 @@ function wrapDB (dbconfig) {
             .call( pool ) 
         } 
     }
+ }
+
+ /**
+  * Gets Employee that has highest sales using reduce on objects in array
+  * @param {*} salesemps Employee objects that contains sales field
+  * @returns Employee that has highest sales
+  */
+ exports.getHighestSalesEmp = (salesemps) => {
+    const max = salesemps.reduce(function(prev, current) {
+        return (prev.sales > current.sales) ? prev : current
+    })
+    return max;
  }
 
  /**
