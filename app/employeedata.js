@@ -81,4 +81,13 @@ function calcGrossPay(payvalue){
      return await db.query('INSERT INTO Employee SET ?', newEmployee);
  }
 
+ /**
+  * Adds things to SalesEmployee
+  * @param {*} salesEmployee Object containing employee_id, sales and commissionrate
+  * @returns query of inserting into database
+  */
+ exports.addSales = async (salesEmployee) => {
+    return await db.query('INSERT INTO SalesEmployee SET ?', salesEmployee);
+ }
+
 
