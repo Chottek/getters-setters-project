@@ -7,13 +7,14 @@
 <h2>List of Employees</h2>
 {% if employees and employees.length > 0 %} 
 {% set emprows = [] %} 
-{% for employee in employees %}
+{% for employee in employees | isFromDep(namefilter) %}
 {% set emprows = (emprows.push([{ text: employee.id }, {text: employee.emp_name }, {text: employee.emp_address}, 
-                    {text: employee.ninum}, {text: employee.start_salary}]), emprows) %} 
+                    {text: employee.ninum}, {text: employee.start_salary}, {text: employee.department}]), emprows) %} 
 {% endfor %} 
 {{govukTable({ 
     head: [ { text: "ID" },{ text: "Name" },{ text: "Address" }, 
-            { text: "NI Number" },{ text: "Starting Salary" } ], 
+            { text: "NI Number" },{ text: "Starting Salary" }, 
+            { text: "Department"} ], 
     rows: emprows }) 
 }} 
 {% else %}
