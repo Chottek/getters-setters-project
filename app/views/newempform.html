@@ -10,7 +10,7 @@ Enter a new employee
 <div class="govuk-error-message">{{ errormessage }}</div> 
 {% endif %}
 
-<form class="form" action="/addemployees" method="post">
+<form class="form" action="/addemployee" method="post">
 
     {% from "govuk/components/input/macro.njk" import govukInput %}
 
@@ -43,7 +43,7 @@ Enter a new employee
 
     {{ govukInput({
     label: {
-    text: "Bank details:"
+    text: "International Bank Account Number:"
     },
     id: "iban",
     name: "iban",
