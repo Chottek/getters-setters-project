@@ -16,13 +16,13 @@ router.get('/list-employees/:substr', (req, res) => {
         });
 });
 
+
 router.get('/addemployee', async (req, res) => {
     res.render('newempform', { employees: await employeedata.getEmployees() });
 });
 
 router.post('/addemployee', async (req, res) => {
     var emp = req.body;
-    //res.locals.errormessage = "";
     let validityFlag = true;
     if (!hasValidInputLength(emp.emp_name, 50)) {
         res.locals.errormessage = "Name is too long (50 chars max)"
